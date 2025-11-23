@@ -1,7 +1,7 @@
 import mongoose, {Schema,Document} from "mongoose";
 
 export interface IFarmer extends Document{
-    farmerName:string,
+    username:string,
     email:string,
     contactNumber:number,
     password:string,
@@ -12,7 +12,7 @@ export interface IFarmer extends Document{
 }
 
 const farmerSchema:Schema<IFarmer> = new Schema({
-    farmerName:{
+    username:{
         type:String,
         required:[true,"name is required"],
         unique:true,
