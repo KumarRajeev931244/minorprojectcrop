@@ -3,7 +3,7 @@ import mongoose, {Schema,Document} from "mongoose";
 export interface IFarmer extends Document{
     username:string,
     email:string,
-    contactNumber:number,
+    contactNumber:string,
     password:string,
     verifyCode:string,
     verifyCodeExpiry:Date,
@@ -25,7 +25,7 @@ const farmerSchema:Schema<IFarmer> = new Schema({
         match:[ /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,"please enter a valid email"]
     },
     contactNumber:{
-        type:Number,
+        type:String,
         required:[true,"contact number is required"],
         unique: true,
         match:[ /^(\(\d{3}\)|\d{3})[-\s]?\d{3}[-\s]?\d{4}$/,"please enter a valid contact number"]

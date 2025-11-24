@@ -7,11 +7,11 @@ export const farmerNameValidation = z
     .regex(/^[a-zA-Z\s'-]+$/,{message:"name must not contain special character"})
 
 export const signupSchema = z.object({
-    name:farmerNameValidation,
+    username:farmerNameValidation,
     contactNumber: z
-        .number()
+        .string()
         .max(10)
-        .min(10),
+        .min(0),
     email: z
         .string()
         .email({message:"invalid email address"}),
