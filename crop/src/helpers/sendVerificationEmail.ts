@@ -11,10 +11,10 @@ export async function sendVerificationEmail(email:string,username:string,verifyC
             subject: 'CropAI Verification Code',
             react: VerificationEmailTemplates({username, otp:verifyCode})
                 });
-        return {success:true, messsage:"verification email send successfully"}
+        return {success:true, message:"verification email send successfully"}
     } catch (error) {
         console.error("error sending verification email",error);
-        return {success:false, messsage:"failed to send verification email"}
+        return {success:false, message:"failed to send verification email"}
         
     }
 

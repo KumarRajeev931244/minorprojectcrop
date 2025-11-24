@@ -57,6 +57,8 @@ export const authOptions:NextAuthOptions = {
             return token
         },
         async session({session, token}){
+            // ensure session.user exists before assigning
+            // session.user = session.user ?? ({} as any);
             if(token){
                 session.user._id = token._id;
                 session.user.isVerified = token.isVerified;
@@ -68,7 +70,7 @@ export const authOptions:NextAuthOptions = {
     },
 
     pages: {
-        signIn: 'signin',
+        signIn: '/signin',
     },
     session:{
         strategy:"jwt"
