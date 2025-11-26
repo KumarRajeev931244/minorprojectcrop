@@ -6,12 +6,18 @@ import dbConnect from "@/lib/dbConnect";
 import jwt from 'jsonwebtoken';
 
 
-dbConnect()
+await dbConnect()
 export async function POST(request: NextRequest){
     try {
         const requestBody = await request.json()
         const {email, contactNumber, password} = requestBody
-        const user = await FarmerModel.findOne({email, contactNumber})
+        const user = await FarmerModel.findOne({
+            $or: [
+                    { email: email },
+                    { contactNumber: contactNumber }
+                ]
+        })
+       
         // if user does not exist
         if(!user){
             return NextResponse.json(

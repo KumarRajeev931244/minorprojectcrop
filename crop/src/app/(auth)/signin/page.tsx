@@ -17,7 +17,7 @@ export default function page() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter()
 //   const handleSubmit = (e: React.FormEvent) => {
 //     e.preventDefault();
@@ -26,6 +26,7 @@ export default function page() {
 //   };
   
      const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+        setIsSubmitting(true);
         const result = await signIn('credentials',{
             redirect: false,
             identifier: data.identifier,
@@ -40,6 +41,7 @@ export default function page() {
             toast.success("login successfully")
             router.replace('/dashboard')
         }   
+        setIsSubmitting(false);
     }
  const form = useForm<z.infer<typeof signInSchema>>({
         resolver: zodResolver(signInSchema),
@@ -90,7 +92,12 @@ export default function page() {
                         </FormItem>
                         )}>  
                         </FormField>
-                        <Button className='cursor-pointer' type="submit">sign in
+                        <Button 
+                        className='cursor-pointer' 
+                        type="submit"
+                        disabled={isSubmitting}
+                        >
+                        {isSubmitting ? 'Signing In...' : 'Sign In'} 
                         </Button>
                         </form>
                     </Form>
