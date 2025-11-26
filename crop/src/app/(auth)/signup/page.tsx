@@ -13,8 +13,8 @@ import { Button } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
 import toast from "react-hot-toast"
 import { signupSchema } from "@/schema/signupSchema"
-const page = () => {
-    const [username, setUsername] = useState('')
+const Page = () => {
+    // const [username, setUsername] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const router = useRouter()
     const form = useForm<z.infer<typeof signupSchema>>({
@@ -38,13 +38,16 @@ const page = () => {
             toast.success("successfully sign up", {
                 // description:response.data.message,
                 })
-            router.replace(`/verify/${username}`)
+            router.replace(`/verify/${data.username}`)
+            // router.replace('/signin')
             setIsSubmitting(false)
         } catch (error) {
             console.error("error in signup of user", error)
             const axiosError = error as AxiosError<ApiResponse>
             let errorMessage = axiosError.response?.data.message
             toast.error("signup failed")
+            setIsSubmitting(false)
+        } finally{
             setIsSubmitting(false)
         }
     }
@@ -113,6 +116,7 @@ const page = () => {
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
                                     <Input 
+                                        type="password"
                                         placeholder="password" {...field}
                                     />  
                                 </FormControl>
@@ -143,4 +147,4 @@ const page = () => {
 }
 
 
-export default page
+export default Page

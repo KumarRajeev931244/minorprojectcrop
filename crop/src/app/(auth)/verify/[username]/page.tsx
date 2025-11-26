@@ -2,7 +2,7 @@
 import { useParams, useRouter } from 'next/navigation'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import toast from 'react-hot-toast'
 import { ApiResponse } from '@/types/ApiResponse'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -14,16 +14,25 @@ import { verifyCodeSchema } from '@/schema/verifySchema'
 
 const Page = () => {
     const router =  useRouter()
+    const params = useParams<{username:string}>()
     // getting data from url
     const form = useForm<z.infer<typeof verifyCodeSchema>>({
-        resolver: zodResolver(verifyCodeSchema)
+        resolver: zodResolver(verifyCodeSchema),
+        defaultValues:{
+            code:''
+        }
     })
     const onSubmit = async(data: z.infer<typeof verifyCodeSchema>) => {
        
         try {
+            console.log("verification data",data);
             const response = await axios.post<ApiResponse>(`/api/verifycode`, {
-                code: data.code
+                code: data.code,
+                username: params.username
+                
             })
+            console.log("verify response:",response);
+            console.log("verify code response:",response);
             toast.success("verification done successfully")
             router.replace('/signin')
         } catch (error) {
