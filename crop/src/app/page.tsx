@@ -15,6 +15,7 @@ export default function Home() {
            <Link href='/feature' className="hover:text-green-700">Feature</Link>
           <Link href='/aboutUs' className="hover:text-green-700">About</Link>
           <Link href='/contactUs' className="hover:text-green-700">Contact us</Link>
+          <Link href='/agriculturevideo' className="hover:text-green-700">Video</Link>
           <Link href='/signin'>
             <Button className="w-full md:w-auto cursor-pointer">Login</Button>
           </Link>
